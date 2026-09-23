@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fr-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Olidoku</title>
+  <meta name="description" content="Place un Olivier par rangée, par colonne et par couleur — sans qu'ils se touchent. Casse-tête quotidien, sans pub.">
+  <meta name="theme-color" content="#7a2e8a">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="img/icone.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="img/icone-512.png">
+  <meta property="og:title" content="Olidoku">
+  <meta property="og:description" content="Un Olivier par rangée, par colonne et par couleur. Le défi du jour t'attend.">
+  <meta property="og:image" content="img/apercu.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="entete">
+    <button class="icone-btn" id="btn-regles" aria-label="Règles">?</button>
+    <div class="titre">
+      <h1>Oli<span>doku</span></h1>
+      <p class="tagline">P'tit chat</p>
+    </div>
+    <button class="icone-btn" id="btn-stats" aria-label="Statistiques">▥</button>
+  </header>
+
+  <nav class="modes" role="tablist">
+    <button role="tab" id="onglet-jour" class="actif" aria-selected="true">Défi du jour</button>
+    <button role="tab" id="onglet-libre" aria-selected="false">Partie libre</button>
+  </nav>
+
+  <div class="tailles" id="tailles" hidden>
+    <!-- rempli en JS : 5×5 … 9×9 -->
+  </div>
+
+  <main class="jeu">
+    <div class="infos">
+      <span id="info-titre">—</span>
+      <span id="chrono" aria-live="off">0:00</span>
+    </div>
+    <div class="plateau-cadre">
+      <div id="plateau" class="plateau" aria-label="Grille"></div>
+      <div id="chargement" class="chargement" hidden>Génération…</div>
+    </div>
+    <p class="aide">Touche une fois : ✕ · deux fois : Olivier · glisse pour barrer.</p>
+    <div class="outils">
+      <button id="btn-annuler">↶ Annuler</button>
+      <button id="btn-effacer">Effacer</button>
+      <button id="btn-indice">Indice</button>
+    </div>
+    <label class="option">
+      <input type="checkbox" id="opt-auto"> Croix automatiques autour d'un Olivier
+    </label>
+  </main>
+
+  <!-- Fenêtre : victoire -->
+  <dialog id="dlg-victoire">
+    <img class="dlg-visage" id="victoire-visage" alt="Olivier">
+    <h2>Bravo!</h2>
+    <p id="victoire-texte"></p>
+    <div class="dlg-actions">
+      <button id="btn-partager" class="principal">Partager</button>
+      <button id="btn-rejouer">Nouvelle grille</button>
+      <button data-fermer>Fermer</button>
+    </div>
+  </dialog>
+
+  <!-- Fenêtre : règles -->
+  <dialog id="dlg-regles">
+    <h2>Comment jouer</h2>
+    <ul class="regles">
+      <li>Place <strong>un Olivier</strong> dans chaque <strong>rangée</strong>, chaque <strong>colonne</strong> et chaque <strong>région de couleur</strong>.</li>
+      <li>Deux Olivier ne peuvent <strong>jamais se toucher</strong>, même en diagonale.</li>
+      <li>Touche une case une fois pour la barrer (✕), deux fois pour y mettre Olivier, trois fois pour la vider.</li>
+      <li>Glisse le doigt sur plusieurs cases pour les barrer d'un coup.</li>
+      <li>Chaque grille n'a qu'<strong>une seule solution</strong> : pas besoin de deviner.</li>
+      <li>Le défi du jour grossit pendant la semaine : 5 × 5 le lundi, 9 × 9 le dimanche.</li>
+    </ul>
+    <div class="dlg-actions"><button data-fermer class="principal">Compris</button></div>
+  </dialog>
+
+  <!-- Fenêtre : statistiques -->
+  <dialog id="dlg-stats">
+    <h2>Statistiques</h2>
+    <div class="stats" id="stats-contenu"></div>
+    <div class="dlg-actions"><button data-fermer class="principal">Fermer</button></div>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+
+  <script src="js/moteur.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

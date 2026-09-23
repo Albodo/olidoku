@@ -1,0 +1,10 @@
+{
+  "name": "olidoku",
+  "version": "0.1.0",
+  "description": "Casse-tête logique façon Mewdoku avec Olivier Niquet, conçu pour mobile, sans pub.",
+  "private": true,
+  "scripts": {
+    "test": "node tests/test-moteur.js",
+    "serve": "npx --yes serve ."
+  }
+}
